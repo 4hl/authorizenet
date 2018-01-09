@@ -54,4 +54,30 @@ class CIMCreateCardRequestTest extends TestCase
         $this->assertEquals('1234 Test Street', $data->profile->paymentProfiles->billTo->address);
         $this->assertEquals('Blacksburg', $data->profile->paymentProfiles->billTo->city);
     }
+
+    public function testValidationModePassedThroughEvenInLivemode()
+    {
+        $this->request->initialize(
+            array(
+                'customerProfileId' => '28775801',
+                'email' => "kaylee@serenity.com",
+		'card' => $this->getValidCard(),
+                'developerMode' => false,
+            )
+        );
+        $data = $this->request->getData();
+        $this->assertEquals('liveMode', $data->validationMode);
+
+        $this->request->initialize(
+            array(
+                'customerProfileId' => '28775801',
+                'email' => "kaylee@serenity.com",
+		'card' => $this->getValidCard(),
+                'developerMode' => false,
+                'validationMode' => 'testMode',
+            )
+        );
+        $data = $this->request->getData();
+        $this->assertEquals('testMode', $data->validationMode);
+    }
 }

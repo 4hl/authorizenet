@@ -22,6 +22,7 @@ class CIMCreateCardRequest extends CIMAbstractRequest
         $data = $this->getBaseData();
         $this->addProfileData($data);
         $this->addTestModeSetting($data);
+	$this->addValidationOverride($data);
 
         return $data;
     }
@@ -290,4 +291,11 @@ class CIMCreateCardRequest extends CIMAbstractRequest
         $obj->initialize(array_replace($this->getParameters(), $parameters));
         return $obj->send();
     }
+
+    public function addValidationOverride($data)
+    {
+        if ($this->getParameter('validationMode')) {
+	   $data->validationMode = $this->getParameter('validationMode');
+        }
+   }
 }
