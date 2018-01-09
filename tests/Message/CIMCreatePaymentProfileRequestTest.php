@@ -31,4 +31,30 @@ class CIMCreatePaymentProfileRequestTest extends TestCase
         $this->assertEquals($card['number'], $data->paymentProfile->payment->creditCard->cardNumber);
         $this->assertEquals('testMode', $data->validationMode);
     }
+
+    public function testValidationModePassedThroughEvenInLivemode()
+    {
+        $this->request->initialize(
+            array(
+                'customerProfileId' => '28775801',
+                'email' => "kaylee@serenity.com",
+		'card' => $this->getValidCard(),
+                'developerMode' => false,
+            )
+        );
+        $data = $this->request->getData();
+        $this->assertEquals('liveMode', $data->validationMode);
+
+        $this->request->initialize(
+            array(
+                'customerProfileId' => '28775801',
+                'email' => "kaylee@serenity.com",
+		'card' => $this->getValidCard(),
+                'developerMode' => false,
+                'validationMode' => 'testMode',
+            )
+        );
+        $data = $this->request->getData();
+        $this->assertEquals('testMode', $data->validationMode);
+    }
 }

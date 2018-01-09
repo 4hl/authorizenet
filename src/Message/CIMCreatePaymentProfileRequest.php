@@ -23,6 +23,7 @@ class CIMCreatePaymentProfileRequest extends CIMCreateCardRequest
         $data->customerProfileId = $this->getCustomerProfileId();
         $this->addPaymentProfileData($data);
         $this->addTestModeSetting($data);
+	$this->addValidationOverride($data);
 
         return $data;
     }
@@ -47,4 +48,12 @@ class CIMCreatePaymentProfileRequest extends CIMCreateCardRequest
 
         return $this->response = new CIMCreatePaymentProfileResponse($this, $httpResponse->getBody());
     }
+
+    public function addValidationOverride($data)
+    {
+        if ($this->getParameter('validationMode')) {
+	   $data->validationMode = $this->getParameter('validationMode');
+        }
+   }
 }
+

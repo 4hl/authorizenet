@@ -17,7 +17,8 @@ class CIMGateway extends AIMGateway
             'testMode' => false,
             'developerMode' => false,
             'forceCardUpdate' => false,
-            'defaultBillTo' => array(array())
+            'defaultBillTo' => array(array()),
+	    'validationMode' => '',
         );
     }
 
@@ -44,6 +45,16 @@ class CIMGateway extends AIMGateway
     public function getDefaultBillTo()
     {
         return $this->getParameter('defaultBillTo');
+    }
+
+    public function setValidationMode($validationMode)
+    {
+        return $this->setParameter('validationMode', $validationMode);
+    }
+
+    public function getValidationMode()
+    {
+        return $this->getParameter('validationMode');
     }
 
     /**

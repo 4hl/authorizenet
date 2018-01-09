@@ -77,6 +77,16 @@ abstract class CIMAbstractRequest extends AIMAbstractRequest
         return $this->getParameter('defaultBillTo');
     }
 
+    public function setValidationMode($validationMode)
+    {
+        return $this->setParameter('validationMode', $validationMode);
+    }
+
+    public function getValidationMode()
+    {
+        return $this->getParameter('validationMode');
+    }
+
     /**
      * Create and return the base XML data required to create a new request
      *
